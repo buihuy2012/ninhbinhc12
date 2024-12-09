@@ -1,0 +1,812 @@
+<!DOCTYPE html>
+<html lang="vi">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Khám Phá Ninh Bình - Vẻ Đẹp Của Di Sản</title>
+    <link
+      href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css"
+      rel="stylesheet"
+    />
+    <link
+      href="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.css"
+      rel="stylesheet"
+    />
+    <script src="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.js"></script>
+
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        font-family: "Segoe UI", sans-serif;
+        scroll-behavior: smooth;
+      }
+
+      :root {
+        --primary-color: #2c5f2d;
+        --secondary-color: #97bc62;
+        --accent-color: #ffe77a;
+        --background-color: #f2f5f5;
+        --text-color: #333333;
+        --card-background: rgba(255, 255, 255, 0.1);
+        --card-border: rgba(255, 255, 255, 0.2);
+        --shadow-color: rgba(0, 0, 0, 0.1);
+      }
+
+      .dark-mode {
+        --primary-color: #1a4314;
+        --secondary-color: #2c5f2d;
+        --accent-color: #97bc62;
+        --background-color: #0a0f0d;
+        --text-color: #e5e5e5;
+        --card-background: rgba(0, 0, 0, 0.2);
+        --card-border: rgba(255, 255, 255, 0.1);
+        --shadow-color: rgba(0, 0, 0, 0.3);
+      }
+
+      body {
+        background: var(--background-color);
+        color: var(--text-color);
+        overflow-x: hidden;
+      }
+
+      /* Animated Background */
+      .background-animation {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        z-index: -1;
+        opacity: 0.5;
+      }
+
+      .cloud {
+        position: absolute;
+        background: var(--card-background);
+        border-radius: 50%;
+        animation: float 15s infinite linear;
+      }
+
+      @keyframes float {
+        0% {
+          transform: translateX(-100%) translateY(0);
+        }
+        100% {
+          transform: translateX(100vw) translateY(0);
+        }
+      }
+
+      /* Header & Navigation */
+      header {
+        position: fixed;
+        top: 0;
+        width: 100%;
+        z-index: 1000;
+        background: rgba(255, 255, 255, 0.1);
+        backdrop-filter: blur(10px);
+        border-bottom: 1px solid var(--card-border);
+      }
+
+      nav {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 1rem 5%;
+        max-width: 1400px;
+        margin: 0 auto;
+      }
+
+      .logo {
+        font-size: 1.5rem;
+        font-weight: bold;
+        color: var(--primary-color);
+      }
+
+      .nav-links {
+        display: flex;
+        gap: 2rem;
+      }
+
+      .nav-links a {
+        color: var(--text-color);
+        text-decoration: none;
+        font-weight: 500;
+        transition: color 0.3s;
+      }
+
+      .nav-links a:hover {
+        color: var(--accent-color);
+      }
+
+      /* Theme Toggle */
+      .theme-toggle {
+        background: none;
+        border: none;
+        color: var(--text-color);
+        cursor: pointer;
+        font-size: 1.5rem;
+        padding: 0.5rem;
+      }
+
+      /* Hero Section */
+      .hero {
+        height: 100vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        position: relative;
+        overflow: hidden;
+        margin-bottom: 2rem;
+      }
+
+      .hero-image {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        z-index: -1;
+      }
+
+      .hero-content {
+        text-align: center;
+        color: white;
+        padding: 2rem;
+        background: rgba(0, 0, 0, 0.4);
+        border-radius: 20px;
+        backdrop-filter: blur(10px);
+      }
+
+      .hero-content h1 {
+        font-size: 3.5rem;
+        margin-bottom: 1rem;
+      }
+
+      .hero-content p {
+        font-size: 1.2rem;
+        max-width: 600px;
+        margin: 0 auto;
+      }
+
+      /* Section Styles */
+      .section {
+        padding: 5rem 5%;
+        max-width: 1400px;
+        margin: 0 auto;
+      }
+
+      .section-title {
+        text-align: center;
+        font-size: 2.5rem;
+        margin-bottom: 3rem;
+        color: var(--primary-color);
+      }
+
+      /* Card Grid */
+      .card-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+        gap: 2rem;
+        padding: 1rem;
+      }
+
+      .card {
+        background: var(--card-background);
+        border-radius: 20px;
+        overflow: hidden;
+        backdrop-filter: blur(10px);
+        border: 1px solid var(--card-border);
+        transition: transform 0.3s, box-shadow 0.3s;
+      }
+
+      .card:hover {
+        transform: translateY(-10px);
+        box-shadow: 0 10px 20px var(--shadow-color);
+      }
+
+      .card-image {
+        width: 100%;
+        height: 200px;
+        object-fit: cover;
+      }
+
+      .card-content {
+        padding: 1.5rem;
+      }
+
+      .card-title {
+        font-size: 1.25rem;
+        margin-bottom: 1rem;
+        color: var(--primary-color);
+      }
+
+      .card-description {
+        font-size: 0.9rem;
+        line-height: 1.6;
+        margin-bottom: 1rem;
+      }
+
+      /* Rating System */
+      .rating-container {
+        text-align: center;
+        padding: 3rem 1rem;
+        background: var(--card-background);
+        border-radius: 20px;
+        backdrop-filter: blur(10px);
+        margin: 2rem auto;
+        max-width: 600px;
+      }
+
+      .stars {
+        font-size: 2rem;
+        color: var(--accent-color);
+        cursor: pointer;
+      }
+
+      .star {
+        transition: color 0.3s;
+      }
+
+      .star:hover {
+        color: var(--primary-color);
+      }
+
+      /* Contact Form */
+      .contact-form {
+        max-width: 600px;
+        margin: 0 auto;
+        padding: 2rem;
+        background: var(--card-background);
+        border-radius: 20px;
+        backdrop-filter: blur(10px);
+      }
+
+      .form-group {
+        margin-bottom: 1.5rem;
+      }
+
+      .form-group label {
+        display: block;
+        margin-bottom: 0.5rem;
+        color: var(--text-color);
+      }
+
+      .form-group input,
+      .form-group textarea {
+        width: 100%;
+        padding: 0.8rem;
+        border: 1px solid var(--card-border);
+        border-radius: 10px;
+        background: var(--background-color);
+        color: var(--text-color);
+      }
+
+      .submit-btn {
+        background: var(--primary-color);
+        color: white;
+        padding: 1rem 2rem;
+        border: none;
+        border-radius: 10px;
+        cursor: pointer;
+        transition: background-color 0.3s;
+      }
+
+      .submit-btn:hover {
+        background: var(--secondary-color);
+      }
+
+      /* Footer */
+      footer {
+        background: var(--primary-color);
+        color: white;
+        padding: 3rem 5%;
+        margin-top: 4rem;
+      }
+
+      .footer-content {
+        max-width: 1400px;
+        margin: 0 auto;
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+        gap: 2rem;
+      }
+
+      .footer-section h3 {
+        margin-bottom: 1rem;
+      }
+
+      .footer-section p {
+        margin-bottom: 0.5rem;
+      }
+
+      .social-links {
+        display: flex;
+        gap: 1rem;
+        margin-top: 1rem;
+      }
+
+      .social-links a {
+        color: white;
+        font-size: 1.5rem;
+        transition: color 0.3s;
+      }
+
+      .social-links a:hover {
+        color: var(--accent-color);
+      }
+
+      /* Scroll to Top Button */
+      .scroll-top {
+        position: fixed;
+        bottom: 2rem;
+        right: 2rem;
+        background: var(--primary-color);
+        color: white;
+        width: 50px;
+        height: 50px;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+        opacity: 0;
+        transition: opacity 0.3s;
+        z-index: 1000;
+      }
+
+      .scroll-top.visible {
+        opacity: 1;
+      }
+
+      /* Responsive Design */
+      @media (max-width: 768px) {
+        .nav-links {
+          display: none;
+        }
+
+        .hero-content h1 {
+          font-size: 2.5rem;
+        }
+
+        .section {
+          padding: 3rem 5%;
+        }
+
+        .card-grid {
+          grid-template-columns: 1fr;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <!-- Background Animation -->
+    <div class="background-animation">
+      <div class="cloud" style="width: 100px; height: 100px; top: 20%"></div>
+      <div class="cloud" style="width: 150px; height: 150px; top: 40%"></div>
+      <div class="cloud" style="width: 120px; height: 120px; top: 60%"></div>
+    </div>
+
+    <!-- Header -->
+    <header>
+      <nav>
+        <div class="logo">Ninh Bình</div>
+        <div class="nav-links">
+          <a href="#landscapes">Cảnh Quan</a>
+          <a href="#cuisine">Ẩm Thực</a>
+          <a href="#rating">Đánh Giá</a>
+          <a href="#contact">Liên Hệ</a>
+        </div>
+        <button class="theme-toggle">
+          <i class="bx bx-moon"></i>
+        </button>
+      </nav>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero">
+      <img
+        src="https://images.pexels.com/photos/2162220/pexels-photo-2162220.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
+        alt="Ninh Bình"
+        class="hero-image"
+      />
+      <div class="hero-content">
+        <h1>Khám Phá Ninh Bình</h1>
+        <p>Hành trình khám phá vẻ đẹp của di sản thiên nhiên và văn hóa</p>
+      </div>
+    </section>
+
+    <!-- Landscapes Section -->
+    <section id="landscapes" class="section">
+      <h2 class="section-title">Cảnh Quan</h2>
+      <div class="card-grid">
+        <!-- Quần thể Tràng An -->
+        <div class="card" data-aos="fade-up">
+          <img
+            src="https://tttt.ninhbinh.gov.vn/uploads/images/THU%20THAO/2%20DU%20LICH/Danh%20th%E1%BA%AFng%20Tr%C3%A0ng%20An-%20%E1%BA%A2nh%20ITN.jpg"
+            alt="Quần thể Tràng An"
+            class="card-image"
+          />
+          <div class="card-content">
+            <h3 class="card-title">Quần thể Tràng An</h3>
+            <p class="card-description"></p>
+            Quần thể danh thắng Tràng An là một vùng du lịch tổng hợp gồm các di
+            sản văn hóa và thiên nhiên thế giới do UNESCO công nhận ở Ninh Bình,
+            Việt Nam. Trước đó, nhiều di tích danh thắng nơi đây đã được Chính
+            phủ Việt Nam xếp hạng di tích quốc gia đặc biệt quan trọng như Khu
+            du lịch sinh thái Tràng An, khu du lịch Tam Cốc - Bích Động, chùa
+            Bái Đính, cố đô Hoa Lư...
+            <a href="https://thungnham.com/trang-an-ninh-binh/">Chi tiết</a>
+          </div>
+        </div>
+
+        <!-- Chùa Bái Đính -->
+        <div class="card" data-aos="fade-up" data-aos-delay="100">
+          <img
+            src="https://hoanhap.vn/files/images/article32975.jpg"
+            alt="Chùa Bái Đính"
+            class="card-image"
+          />
+          <div class="card-content">
+            <h3 class="card-title">Chùa Bái Đính</h3>
+            <p class="card-description">
+              Chùa Bái Đính là một quần thể chùa lớn với nhiều kỷ lục châu Á và
+              Việt Nam được xác lập như chùa có tượng Phật bằng đồng dát vàng
+              lớn nhất châu Á, chùa có hành lang La Hán dài nhất châu Á, có
+              tượng Di lặc bằng đồng lớn nhất Đông Nam Á... Đây là ngôi chùa lớn
+              nhất và sở hữu nhiều kỷ lục nhất ở Việt Nam.
+              <a href="https://www.traveloka.com/vi-vn/explore/destination/chua-bai-dinh/154745?fbclid=IwY2xjawHD8SxleHRuA2FlbQIxMAABHT-Aw1DXR_pHfLEOK0qnCMGtw8-GyE6IKmYm_l43js-ljlaZV59gJitbPA_aem_wWAQb4JkPdiyFhZHAS1BDA">Chi tiết</a>
+            </p>
+          </div>
+        </div>
+
+        <!-- Hang Múa -->
+        <div class="card" data-aos="fade-up" data-aos-delay="200">
+          <img
+            src="https://www.bambooairways.com/documents/20122/1165110/du-lich-hang-mua-1.jpg/41ceb464-8adb-8001-e535-1e7def7e1834?t=1695021943324"
+            alt="Hang Múa"
+            class="card-image"
+          />
+          <div class="card-content">
+            <h3 class="card-title">Hang Múa</h3>
+            <p class="card-description">
+              Hang Múa là một điểm du lịch nằm trong vùng lõi Quần thể di sản
+              thế giới Tràng An, tỉnh Ninh Bình. Hang Múa có đặc điểm địa chất,
+              địa mạo đặc trưng của vùng núi đá vôi có tuổi đời hàng triệu năm.
+              Với cảnh quan đặc biệt và hấp dẫn, Hang Múa được báo chí đánh giá
+              là điểm sống ảo ở Việt Nam. Điểm nhấn của khu du lịch Hang Múa là
+              phong cảnh đẹp trên con đường dẫn lên đỉnh núi Múa được xây dựng
+              mô phỏng theo kiến trúc Vạn Lý Trường Thành với gần 500 bậc thang
+              đá
+              <a href="https://vietnamtourism.gov.vn/post/33414?fbclid=IwY2xjawHD76dleHRuA2FlbQIxMAABHVfuPnrN0e5T-ys3q-OV6HPzwPxJJ_hn-UE536wBoridkDcWPSCXeiY4FQ_aem_7YlhrFXOcRKUkrH6klvZXQ">Chi tiết</a>
+            </p>
+          </div>
+        </div>
+
+        <!-- Phố cổ Hoa Lư -->
+        <div class="card" data-aos="fade-up">
+          <img
+            src="https://image.nhandan.vn/w2000/Uploaded/2023/wpyslebflyr/2023_11_23/d54969c2-c5c7-4f3d-b9a0-5e9aceb74d75-909.jpeg.webp"
+            alt="Phố cổ Hoa Lư"
+            class="card-image"
+          />
+          <div class="card-content">
+            <h3 class="card-title">Phố cổ Hoa Lư</h3>
+            <p class="card-description">
+              Phố cổ Hoa Lư nằm ở quần thể công viên Hồ Kỳ Lân và Khách sạn Hoa Lư, được khánh thành và đưa vào hoạt động vào đầu năm 2022. Công trình này được lấy ý tưởng từ văn hóa truyền thống của Đại Việt trong những năm thế kỷ thứ X. Có thể nói Phố cổ Hoa Lư chính là bức tranh giúp tái hiện và phục dựng được toàn bộ những nét đẹp về kiến trúc, đời sống văn hóa xã hội và phong tục tập quán đặc sắc ngàn đời của người dân trên mọi miền đất nước.
+              <a href="https://lug.vn/pho-co-hoa-lu?srsltid=AfmBOop2ZtiqsG9nhiMDRStQ0iboixyRwvChIgfFL-KiHYwmq_KwcwHG&fbclid=IwY2xjawHD8olleHRuA2FlbQIxMAABHexuhA4HEX-KDrYJfMP9fFREqupmJnER8N6JPYq7EqTagGB1YGj1fxObPg_aem_--H4HU64FKui94SpiLszUQ">Chi tiết</a>
+            </p>
+          </div>
+        </div>
+
+        <!-- Vườn quốc gia Cúc Phương -->
+        <div class="card" data-aos="fade-up" data-aos-delay="100">
+          <img
+            src="https://sotnmt.ninhbinh.gov.vn/public/userfiles/2022/Anh/2207-vqg_cuc_phuong_1.jpg"
+            alt="Vườn quốc gia Cúc Phương"
+            class="card-image"
+          />
+          <div class="card-content">
+            <h3 class="card-title">Vườn quốc gia Cúc Phương</h3>
+            <p class="card-description">
+              Vườn Quốc gia Cúc Phương (hay rừng Cúc Phương) là một khu bảo tồn thiên nhiên, khu rừng đặc dụng nằm trên địa phận ranh giới 3 khu vực Tây Bắc Bộ, đồng bằng sông Hồng và Bắc Trung Bộ thuộc 3 tỉnh: Ninh Bình, Hòa Bình, Thanh Hóa. Vườn quốc gia này có hệ động thực vật phong phú đa dạng mang đặc trưng rừng mưa nhiệt đới.
+              <a href="https://vissaihotel.vn/vi/blog/vuon-quoc-gia-cuc-phuong.html?fbclid=IwY2xjawHD78ZleHRuA2FlbQIxMAABHcQyhnTT5fLXisk97c_k27eFFPQfhcadj4y6nXUtj7R-Y0ojhlOZkKkjJw_aem_Nv93ikiCkboBKKsKjzBh3A">Chi tiết</a>
+            </p>
+          </div>
+        </div>
+
+        <!-- Đền vua Đinh - đền Vua Lê -->
+        <div class="card" data-aos="fade-up" data-aos-delay="200">
+          <img
+            src="https://cozyvietnamtravel.vn/wp-content/uploads/2023/11/tham-quan-den-vua-dinh-va-den-vua-le-ninh-binh4.jpg"
+            alt="Đền vua Đinh - đền Vua Lê"
+            class="card-image"
+          />
+          <div class="card-content">
+            <h3 class="card-title">Đền vua Đinh - đền Vua Lê</h3>
+            <p class="card-description">
+              Đền Vua Đinh và Đền Vua Lê, được xây dựng từ thời nhà Lý và được nhà Hậu Lê cho xây dựng lại vào thế kỷ 17, tọa lạc tại xã Trường Yên - vị trí thuộc trung tâm thành Đông của Kinh đô Hoa Lư xưa. Hai ngôi di tích lịch sử đặc biệt đã được xếp hạng “Tốp 100 Công trình 100 tuổi nổi tiếng ở Việt Nam.
+              <a href="https://luhanhvietnam.com.vn/du-lich/den-vua-dinh-vua-le-ninh-binh.html?fbclid=IwY2xjawHD7-hleHRuA2FlbQIxMAABHahcIXBL9ehSL1vjcXxKpRuRP4JveGIdN_jK5voonF2qp8zaZf0B_MBajA_aem_Erkdf4emsKTLNEhAL7brQA">Chi tiết</a>
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Cuisine Section -->
+    <section id="cuisine" class="section">
+      <h2 class="section-title">Ẩm Thực</h2>
+      <div class="card-grid">
+        <!-- Gỏi nhệch Kim Sơn Ninh Bình -->
+        <div class="card" data-aos="fade-up">
+          <img
+            src="https://dulichvietnam.com.vn/vnt_upload/news/07_2024/goi_ca_nhech_ninh_binh_1.jpg"
+            alt="Cơm cháy"
+            class="card-image"
+          />
+          <div class="card-content">
+            <h3 class="card-title">Gỏi nhệch Kim Sơn Ninh Bình</h3>
+            <p class="card-description">
+              Gỏi nhệch Kim Sơn Ninh Bình xứng đáng là món ăn nổi tiếng và đặc
+              sản của đất cố đô. Nếu tới với Ninh Bình mà bỏ qua việc thưởng
+              thức món này thì quả là thiếu sót. Gỏi cá nhệch Ninh Bình rất thơm
+              ngon, mang hương vị đặc trưng, chỉ cần ăn một lần là nhớ mãi..
+              <a href="https://mia.vn/cam-nang-du-lich/goi-ca-nhech-ninh-binh-tu-mon-dan-da-den-dac-san-tru-danh-3055">Chi tiết</a>
+            </p>
+          </div>
+        </div>
+
+        <!-- Thịt Dê Cơm Cháy -->
+        <div class="card" data-aos="fade-up" data-aos-delay="100">
+          <img
+            src="https://cungdi.net/uploads/travel/ninh_binh/thit-de-com-chay-mon-an-gay-nho-thuong-cua-co-do-ninh-binh-5-1641209994.jpg"
+            alt="Dê núi"
+            class="card-image"
+          />
+          <div class="card-content">
+            <h3 class="card-title">Cơm Cháy</h3>
+            <p class="card-description">
+              Khác với những món cơm cháy khác, cơm cháy vùng Ninh Bình với
+              nguyên liệu hoà trộn giữa hai loại gạo khô và dẻo. Cơm cháy thường
+              sẽ ăn chung với ruốc hoặc hành lá phi thơm, hoặc lạ miệng hơn khi
+              ăn cùng thịt dê, tim cật và nước sốt đậm đà, chắc hẳn, bạn sẽ nhớ
+              mãi vị giòn rụm của cơm cháy.
+              <a
+              href="https://mia.vn/cam-nang-du-lich/com-chay-ninh-binh-dac-san-tru-danh-voi-cong-thuc-che-bien-truyen-thong-3071"
+              >Chi tiết</a
+            </p>
+          </div>
+        </div>
+
+        <!-- Ốc Núi -->
+        <div class="card" data-aos="fade-up" data-aos-delay="200">
+          <img
+            src="https://mia.vn/media/uploads/blog-du-lich/thuong-thuc-dac-san-ninh-binh-voi-oc-nui-ninh-binh-doc-dao-1-1640598892.jpeg"
+            alt="Xôi Gà"
+            class="card-image"
+          />
+          <div class="card-content">
+            <h3 class="card-title">Ốc Núi</h3>
+            <p class="card-description">
+              Ốc núi thường nằm trong những hang động núi đá vôi Tam Điệp, và
+              nếu bạn muốn thưởng thức món này thì phải đến đúng thời điểm mới
+              có cơ hội thưởng thức. Với vị ốc dai giòn và độ ngọt tự nhiên, và
+              thoang thoảng vị thuốc nam, bạn sẽ bị cuốn hút chỉ khi ăn món ốc
+              hấp đơn giản.
+              <a href="https://mia.vn/cam-nang-du-lich/thuong-thuc-dac-san-ninh-binh-voi-oc-nui-ninh-binh-doc-dao-3003#:~:text=%E1%BB%90c%20n%C3%BAi%20Ninh%20B%C3%ACnh%20hay,nh%C6%B0%20nhi%E1%BB%81u%20lo%E1%BA%A1i%20%E1%BB%91c%20kh%C3%A1c.">Chi tiết</a>
+            </p>
+          </div>
+        </div>
+
+        <!-- Nem Yên Mạc -->
+        <div class="card" data-aos="fade-up" data-aos-delay="300">
+          <img
+            src="https://mia.vn/media/uploads/blog-du-lich/ve-co-do-thuong-thuc-xoi-trung-kien-ninh-binh-la-ma-ngon-03-1640707250.jpg?fbclid=IwZXh0bgNhZW0CMTAAAR0p036Rj1e1uxubPcl95YOBZWAIQ4pVME9CdXbgxUgDkFOESAJHOD5J3rY_aem_4dYBlRwgDcMfTltpqi3bgw"
+            alt="Nem Yên Mạc"
+            class="card-image"
+          />
+          <div class="card-content">
+            <h3 class="card-title">Xôi Trứng Kiến</h3>
+            <p class="card-description">
+              Nguyên liệu trứng kiến cực kỳ khó kiếm, ở Ninh Bình loài kiến duy
+              nhất được chọn là kiến nâu trong dãy đá vôi ở các dãy núi Nho
+              Quan. Có thể vì thế mà món đặc sản này không phải cứ thích là ăn
+              được, là món ăn độc đáo trong văn hóa ẩm thực Ninh Bình.
+              <a href="https://mia.vn/cam-nang-du-lich/ve-co-do-thuong-thuc-xoi-trung-kien-ninh-binh-la-ma-ngon-3075">Chi tiết</a>
+            </p>
+          </div>
+        </div>
+        <!-- Dê núi -->
+        <div class="card" data-aos="fade-up" data-aos-delay="100">
+          <img
+            src="https://thanhnien.mediacdn.vn/Uploaded/2014/saigonamthuc.thanhnien.com.vn/Pictures201404/HuongGiang/NemYenMac.jpg"
+            alt="Dê núi"
+            class="card-image"
+          />
+          <div class="card-content">
+            <h3 class="card-title">Nem Chua Yên Mạc</h3>
+            <p class="card-description">
+              các buổi tiệc tùng hay ngày lễ đình đám tại Ninh Bình đều có sự
+              xuất hiện của món nem chua Yên Mạc. Trở thành một đặc sản trứ danh
+              của vùng đất Ninh Bình, được nhiều du khách ưa chuộng và mua về
+              làm quà.
+              
+<a href="https://mia.vn/cam-nang-du-lich/nem-chua-yen-mac-mon-qua-dam-da-huong-vi-cua-vung-dat-ninh-binh-3060">Chi tiết</a>
+            </p>
+          </div>
+        </div>
+        <!-- Dê núi -->
+        <div class="card" data-aos="fade-up" data-aos-delay="100">
+          <img
+            src="https://ninhbinhlegendhotel.com/wp-content/uploads/2023/04/mon-an-tu-de-nui-ninh-binh.jpg"
+            alt="Dê núi"
+            class="card-image"
+          />
+          <div class="card-content">
+            <h3 class="card-title">Thịt Dê</h3>
+            <p class="card-description">
+              Dê núi Ninh Bình là tên thường gọi của các món ăn được chế biến từ
+              thịt dê của người Ninh Bình, có mặt trong "Top 50 món ăn đặc sản
+              người Việt Nam" do Trung tâm kỷ lục Việt Nam xác lập ngày 7.9.2012
+              <a href="http://trangandanhthang.vn/am-thuc/thit-de-ninh-binh-237503">Chi tiết</a>
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Rating Section -->
+    <section id="rating" class="section">
+      <h2 class="section-title">Đánh Giá</h2>
+      <div class="rating-container">
+        <h3>Hãy chia sẻ trải nghiệm của bạn</h3>
+        <div class="stars">
+          <span class="star" data-rating="1">★</span>
+          <span class="star" data-rating="2">★</span>
+          <span class="star" data-rating="3">★</span>
+          <span class="star" data-rating="4">★</span>
+          <span class="star" data-rating="5">★</span>
+        </div>
+        <p class="rating-text">Chọn số sao để đánh giá</p>
+      </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="section">
+      <h2 class="section-title">Liên Hệ</h2>
+      <form class="contact-form">
+        <div class="form-group">
+          <label for="name">Họ và tên</label>
+          <input type="text" id="name" required />
+        </div>
+        <div class="form-group">
+          <label for="email">Email</label>
+          <input type="email" id="email" required />
+        </div>
+        <div class="form-group">
+          <label for="message">Tin nhắn</label>
+          <textarea id="message" rows="5" required></textarea>
+        </div>
+        <button type="submit" class="submit-btn">Gửi tin nhắn</button>
+      </form>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+      <div class="footer-content">
+        <div class="footer-section">
+          <h3>Về chúng tôi</h3>
+          <p>Chuyên viên tin học thuộc tổ chức 12C12 ( Nhóm 4 )</p>
+          <p>03.   Thúy An ( C )</p>
+          <p>09.   Gia Hân</p>
+          <p>46.   Tường Vy</p>
+          <p>12.   Gia Huy</p>
+          <p>19.   Hoàng Minh</p>
+          <p>11.   Bá Hùng</p>
+        </div>
+        <div class="footer-section">
+          <h3>Liên hệ</h3>
+          <p>Email: thptbinhchieu@gmail.com</p>
+          <p>Điện thoại: 028 2250 8300</p>
+          <p>Địa chỉ: 88B Lê Thị Hoa,phường Bình Chiểu,Thành phố Thủ Đức</p>
+        </div>
+        <div class="footer-section">
+        
+          </div>
+        </div>
+      </div>
+    </footer>
+
+    <!-- Scroll to Top Button -->
+    <div class="scroll-top">
+      <i class="bx bx-up-arrow-alt"></i>
+    </div>
+
+    <script>
+      // Initialize AOS
+      AOS.init({
+        duration: 1000,
+        once: true,
+      });
+
+      // Theme Toggle
+      const themeToggle = document.querySelector(".theme-toggle");
+      const body = document.body;
+
+      themeToggle.addEventListener("click", () => {
+        body.classList.toggle("dark-mode");
+        const icon = themeToggle.querySelector("i");
+        icon.classList.toggle("bx-moon");
+        icon.classList.toggle("bx-sun");
+      });
+
+      // Rating System
+      const stars = document.querySelectorAll(".star");
+      const ratingText = document.querySelector(".rating-text");
+
+      stars.forEach((star) => {
+        star.addEventListener("click", () => {
+          const rating = star.dataset.rating;
+          stars.forEach((s) => {
+            if (s.dataset.rating <= rating) {
+              s.style.color = "var(--accent-color)";
+            } else {
+              s.style.color = "var(--text-color)";
+            }
+          });
+          ratingText.textContent = `Bạn đã đánh giá ${rating} sao!`;
+        });
+      });
+
+      // Scroll to Top
+      const scrollTop = document.querySelector(".scroll-top");
+
+      window.addEventListener("scroll", () => {
+        if (window.pageYOffset > 100) {
+          scrollTop.classList.add("visible");
+        } else {
+          scrollTop.classList.remove("visible");
+        }
+      });
+
+      scrollTop.addEventListener("click", () => {
+        window.scrollTo({ top: 0, behavior: "smooth" });
+      });
+
+      // Form Submission
+      const contactForm = document.querySelector(".contact-form");
+
+      contactForm.addEventListener("submit", (e) => {
+        e.preventDefault();
+        alert("Cảm ơn bạn, Chúng tôi không quan tâm.");
+        contactForm.reset();
+      });
+
+      // Add more clouds dynamically
+      const backgroundAnimation = document.querySelector(
+        ".background-animation"
+      );
+      function createCloud() {
+        const cloud = document.createElement("div");
+        cloud.className = "cloud";
+        cloud.style.width = Math.random() * 100 + 50 + "px";
+        cloud.style.height = cloud.style.width;
+        cloud.style.top = Math.random() * 100 + "%";
+        cloud.style.animationDuration = Math.random() * 10 + 10 + "s";
+        backgroundAnimation.appendChild(cloud);
+
+        cloud.addEventListener("animationend", () => {
+          cloud.remove();
+          createCloud();
+        });
+      }
+
+      // Create initial clouds
+      for (let i = 0; i < 5; i++) {
+        createCloud();
+      }
+    </script>
+  </body>
+</html>
